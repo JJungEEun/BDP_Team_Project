@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
+from pyspark.sql.functions import monotonically_increasing_id 
 
 if __name__ == "__main__":
 	spark = SparkSession.builder.appName("processing").getOrCreate()
@@ -20,9 +21,10 @@ if __name__ == "__main__":
 
 	df = df.drop("UniqueCarrier", "FlightNum", "Distance", "AirTime", "TaxiIn", "TaxiOut", "CancellationCode")
 	
-	airport_dep = df.groupby("Origin").agg(F.count("Year").alias("count")).sort(F.desc("count")).limit(12)
-	airport_arr = df.groupby("Dest").agg(F.count("Year").alias("count")).sort(F.desc("count")).limit(12)
-	
 	df.show()
-	airport_dep.show()
-	airport_arr.show()
+	
+	airport_dep = df.groupby("Origin").agg(F.count("Year").alias("origin_cnt")).sort(F.desc("origin_cnt")).limit(10).withColumn("rank", monotonically_increasing_id()+1)
+	airport_arr = df.groupby("Dest").agg(F.count("Year").alias("dest_cnt")).sort(F.desc("dest_cnt")).limit(10).withColumn("rank", monotonically_increasing_id()+1)
+	airport_top10 = airport_dep.join(airport_arr, airport_arr["rank"]==airport_dep["rank"]).drop("origin_cnt", "dest_cnt")
+	
+	airport_top10.show()
