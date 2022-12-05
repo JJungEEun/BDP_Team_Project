@@ -9,15 +9,15 @@ if __name__ == "__main__":
 			.filter(df["Diverted"]==0)
 
 	df = df.replace(["NA"], ["0"], "CarrierDelay")\
-			.replace(["NA"], ["0"], "WeatherDelay")\
-			.replace(["NA"], ["0"], "NASDelay")\
-			.replace(["NA"], ["0"], "SecurityDelay")\
-			.replace(["NA"], ["0"], "LateAircraftDelay")
+		.replace(["NA"], ["0"], "WeatherDelay")\
+		.replace(["NA"], ["0"], "NASDelay")\
+		.replace(["NA"], ["0"], "SecurityDelay")\
+		.replace(["NA"], ["0"], "LateAircraftDelay")
 
 	df = df.withColumn("ElapsedTime", df.ArrTime - df.DepTime)\
-			.withColumn("CRSElapsedTime", df.CRSArrTime - df.CRSDepTime)\
-			.withColumn("ElapsedTimeDelay", df.CRSElapsedTime - df.ActualElapsedTime)\
-			.drop("UniqueCarrier", "FlightNum", "Distance", "AirTime", "TaxiIn", "TaxiOut", "CancellationCode")
+		.withColumn("CRSElapsedTime", df.CRSArrTime - df.CRSDepTime)\
+		.withColumn("ElapsedTimeDelay", df.CRSElapsedTime - df.ActualElapsedTime)\
+		.drop("DayOfWeek", "FlightNum", "Distance", "AirTime", "TaxiIn", "TaxiOut", "CancellationCode")
 	
 	airport_dep = df.groupby("Origin").agg(F.count("Year").alias("origin_cnt")).sort(F.desc("origin_cnt")).limit(10)
 	airport_arr = df.groupby("Dest").agg(F.count("Year").alias("dest_cnt")).sort(F.desc("dest_cnt")).limit(10)
