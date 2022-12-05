@@ -1,6 +1,7 @@
 %spark2.pyspark
 from pyspark.sql.functions import *
-df_weather = spark.read.csv("hdfs:///user/maria_dev/weather_data/weather_data.csv", header=True, inferSchema=True)
+# df_weather data는 processing 해야한다.
+df_weather = spark.read.csv("hdfs:///user/maria_dev/weather_data/weather_data.csv", header=True, inferSchema=True) 
 
 df_2008 = spark.read.csv("hdfs:///user/maria_dev/airline_data/2008.csv", header=True, inferSchema=True)
 df_2007 = spark.read.csv("hdfs:///user/maria_dev/airline_data/2007.csv", header=True, inferSchema=True)
