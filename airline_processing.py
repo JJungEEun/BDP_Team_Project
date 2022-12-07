@@ -6,7 +6,7 @@ if __name__ == "__main__":
 	df = spark.read.load("airline_data/2008.csv", format="csv", sep=",", inferSchema="true", header="true")
 
 	df = df.filter(df["Cancelled"]==0)\
-			.filter(df["Diverted"]==0)
+		.filter(df["Diverted"]==0)
 
 	df = df.replace(["NA"], ["0"], "CarrierDelay")\
 		.replace(["NA"], ["0"], "WeatherDelay")\
