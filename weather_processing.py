@@ -13,7 +13,7 @@ if __name__ == "__main__":
 		.drop("1", "Day", "DayOfWeek")
 	
 	df = df.withColumnRenamed("0", "Year")\
-		.withColumnRenamed("2", "AiportCode")\
+		.withColumnRenamed("2", "AirportCode")\
 		.withColumnRenamed("3", "Weather")
 	
 	df = df.replace(["Jan"], ["1"], "Month")\
