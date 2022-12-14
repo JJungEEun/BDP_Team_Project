@@ -42,3 +42,7 @@ df = df_airline.join(df_weather, (df_weather["Year"]==df_airline["Year"])
     | (df_airline["Dest"]==df_weather["AirportCode"]))
 df = df.groupby("Weather").agg(count("WeatherDelay").alias("Count"))
        .orderBy(desc("Count"))
+
+# 지연 종류 별 평균 지연 시간
+is_delay = df.select(mean("CarrierDelay"), mean("WeatherDelay"), \
+                     mean("NASDelay"), mean("SecurityDelay"), mean("LateAircraftDelay"))
