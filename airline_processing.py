@@ -15,7 +15,6 @@ if __name__ == "__main__":
 		.replace(["NA"], ["0"], "LateAircraftDelay")
 
 	df = df.withColumn("ElapsedTime", df.ArrTime - df.DepTime)\
-		.withColumn("CRSElapsedTime", df.CRSArrTime - df.CRSDepTime)\
 		.withColumn("ElapsedTimeDelay", df.CRSElapsedTime - df.ActualElapsedTime)\
 		.drop("DayOfWeek", "FlightNum", "Distance", "AirTime", "TaxiIn", "TaxiOut", "CancellationCode")
 	
