@@ -18,7 +18,6 @@ if __name__ == "__main__":
 		df = df.replace(["NA"], ["0"], "LateAircraftDelay")
 		
 		df = df.withColumn("ElapsedTime", df.ArrTime - df.DepTime) # 총 비행 경과 시간 컬럼 추가(도착 시간 - 출발 시간)
-		df = df.withColumn("CRSElapsedTime", df.CRSArrTime - df.CRSDepTime) # 예상 비행 경과 시간 컬럼 추가(예상 도착 시간 - 예상 출발 시간)
 		df = df.withColumn("ElapsedTimeDelay", df.CRSElapsedTime - df.ActualElapsedTime) # 지연된 비행 경과 시간 컬럼 추가(예상 비행 경과 시간 - 실제 비행 경과 시간)
 
 		df = df.drop("UniqueCarrier", "FlightNum", "Distance", "AirTime", "TaxiIn", "TaxiOut", "CancellationCode") # 사용하지 않는 컬럼 삭제
