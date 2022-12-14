@@ -15,7 +15,7 @@ dow = df.groupBy("DayOfWeek")
 
 # 항공사별 지연 시간
 carrier = df.groupby(['UniqueCarrier'])
-            .agg(mean('ArrDelay').alias('arrdelay_avg'),\
+            .agg(mean('ArrDelay').alias('arrdelay_avg'), \
             mean('DepDelay').alias('depdelay_avg'))
 
 # 출발지 공항별 평균 지연 시간
