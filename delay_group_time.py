@@ -7,12 +7,13 @@ from pyspark.sql import functions as F
 df_weather = spark.read.csv("hdfs:///user/maria_dev/pro/pre2008weather.csv", header=True, inferSchema=True) 
 
 df_2008 = spark.read.csv("hdfs:///user/maria_dev/pro/2008resultfull.csv", header=True, inferSchema=True)
-#df_2007 = spark.read.csv("hdfs:///user/maria_dev/airline_data/2007.csv", header=True, inferSchema=True)
-#//df_2006 = spark.read.csv("hdfs:///user/maria_dev/airline_data/2006.csv", header=True, inferSchema=True)
-#//df_2005 = spark.read.csv("hdfs:///user/maria_dev/airline_data/2005.csv", header=True, inferSchema=True)
-#df_2004 = spark.read.csv("hdfs:///user/maria_dev/airline_data/2004.csv", header=True, inferSchema=True)
-#df_2003 = spark.read.csv("hdfs:///user/maria_dev/airline_data/2003.csv", header=True, inferSchema=True)
-df_airline = df_2008 #.union(df_2003).union(df_2004).union(df_2005).union(df_2006).union(df_2007).union(df_2008)
+df_2007 = spark.read.csv("hdfs:///user/maria_dev/pro/2007resultfull.csv", header=True, inferSchema=True)
+df_2006 = spark.read.csv("hdfs:///user/maria_dev/pro/2006resultfull.csv", header=True, inferSchema=True)
+df_2005 = spark.read.csv("hdfs:///user/maria_dev/pro/2005resultfull.csv", header=True, inferSchema=True)
+df_2004 = spark.read.csv("hdfs:///user/maria_dev/pro/2004resultfull.csv", header=True, inferSchema=True)
+df_2003 = spark.read.csv("hdfs:///user/maria_dev/pro/2003resultfull.csv", header=True, inferSchema=True)
+
+df_airline = df_2003.union(df_2004).union(df_2005).union(df_2006).union(df_2007).union(df_2008)
 
 df_airline = df_airline.filter(df_airline["Cancelled"]==0).filter(df_airline["Diverted"]==0)
 df_airline = df_airline.replace(["NA"], ["0"], "CarrierDelay").replace(["NA"], ["0"], "WeatherDelay")
