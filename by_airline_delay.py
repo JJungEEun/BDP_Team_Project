@@ -10,7 +10,7 @@ df_2007 = spark.read.csv("hdfs:///user/maria_dev/pro/2007resultfull.csv", header
 df_2006 = spark.read.csv("hdfs:///user/maria_dev/pro/2006resultfull.csv", header=True, inferSchema=True)
 df_2005 = spark.read.csv("hdfs:///user/maria_dev/pro/2005resultfull.csv", header=True, inferSchema=True)
 df_2004 = spark.read.csv("hdfs:///user/maria_dev/pro/2004resultfull.csv", header=True, inferSchema=True)
-df_2003 = spark.read.csv("hdfs:///user/maria_dev/pro/20039resultfull.csv", header=True, inferSchema=True)
+df_2003 = spark.read.csv("hdfs:///user/maria_dev/pro/2003resultfull.csv", header=True, inferSchema=True)
 
 df_airline = df_2003.union(df_2004).union(df_2005).union(df_2006).union(df_2007).union(df_2008)
 
